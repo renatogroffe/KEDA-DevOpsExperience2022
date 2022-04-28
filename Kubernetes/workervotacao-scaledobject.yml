@@ -1,0 +1,21 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: workervotacao-scaledobject
+spec:
+  scaleTargetRef:
+    name: workervotacao
+  pollingInterval: 15
+  cooldownPeriod:  150
+  minReplicaCount: 0
+  maxReplicaCount: 10
+  triggers:
+  - type: azure-eventhub
+    metadata:
+      connectionFromEnv: AzureEventHubs__EventHubsConnectionString
+      storageConnectionFromEnv: AzureEventHubs__BlobStorageConnectionString
+      eventHubName: hub-votacao
+      consumerGroup: worker
+      unprocessedEventThreshold: '5'
+      blobContainer: hub-votacao-storage
+      checkpointStrategy: blobMetadata

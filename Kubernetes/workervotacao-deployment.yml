@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: workervotacao
+spec:
+  selector:
+    matchLabels:
+      app: workervotacao
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: workervotacao
+    spec:
+      containers:
+      - name: workervotacao
+        image: renatogroffe/workerquestaoeventhub-dotnet6:1
+        env:
+        - name: AzureEventHubs__EventHub
+          value: hub-votacao
+        - name: AzureEventHubs__ConsumerGroup
+          value: worker
+        - name: AzureEventHubs__BlobContainer
+          value: hub-votacao-storage
+        - name: AzureEventHubs__EventHubsConnectionString
+          valueFrom:
+            secretKeyRef:
+              name: workervotacaosecret
+              key: ConnectionAzureEventHubs
+        - name: AzureEventHubs__BlobStorageConnectionString
+          valueFrom:
+            secretKeyRef:
+              name: workervotacaosecret
+              key: ConnectionAzureStorage
+        - name: ConnectionStrings__BaseVotacao
+          valueFrom:
+            secretKeyRef:
+              name: workervotacaosecret
+              key: ConnectionSqlServer
