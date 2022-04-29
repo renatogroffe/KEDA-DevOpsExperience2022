@@ -1,5 +1,5 @@
 # KEDA-DevOpsExperience2022
-Exemplo de utilização de **KEDA (Kubernetes Event-driven Autoscaling)** apresentado durante a **edição de Abril-2022** do **DevOps Experience**
+Exemplo de utilização de **KEDA (Kubernetes Event-driven Autoscaling)** apresentado durante a **edição de Abril-2022** do **DevOps Experience**.
 
 Worker Service para consumo de **eventos do Azure Event Hubs** (imagem **renatogroffe/workerquestaoeventhub-dotnet6**) - é justamente esta aplicação que será escalada via **KEDA**:
 
